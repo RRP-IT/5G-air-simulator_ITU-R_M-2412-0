@@ -1,0 +1,80 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Desconhecido </title></head><body>
+<h1 id="5g-air-simulator">5G-air-simulator</h1>
+<h2 id="an-open-source-framework-to-simulate-the-5g-air-interface"><em>an open source framework to simulate the 5G air interface</em></h2>
+<hr />
+<h3 id="table-of-contents">Table of Contents:</h3>
+<ol>
+<li>Getting 5G-air-simulator</li>
+<li>Compiling 5G-air-simulator</li>
+<li>Running 5G-air-simulator</li>
+<li>Use Advanced Channels</li>
+<li>How-to Debugging and Logging</li>
+<li>Additional Support</li>
+</ol>
+<hr />
+<h3 id="1-getting-5g-air-simulator">1. Getting 5G-air-simulator</h3>
+<p>5G-air-simulator is available via Git at <a href="https://github.com/telematics-lab/5G-air-simulator" title="5G-air-simulator Official Repository">this link</a>. 
+To obtain 5G-air-simulator enter into the your prefered folder and write the following syntax:</p>
+<pre><code>$ git clone https://github.com/telematics-lab/5G-air-simulator.git
+</code></pre>
+<p>To synchronize the project repository with the local copy, you can run the pull sub-command. The syntax is as follows:</p>
+<pre><code>$ git pull
+</code></pre>
+<h3 id="2-compiling-5g-air-simulator">2. Compiling 5G-air-simulator</h3>
+<p>First, you need to install make utility and the armadillo library.
+On recent Linux systems, you can run:</p>
+<pre><code>$  sudo apt install make libarmadillo-dev
+</code></pre>
+<p>Then you can build 5G-air-simulator with the following command:</p>
+<pre><code>$ cd 5G-air-simulator; make
+</code></pre>
+<p>To clear the project, you can use the following command:</p>
+<pre><code>$ make clean
+</code></pre>
+<h3 id="3-running-5g-air-simulator">3. Running 5G-air-simulator</h3>
+<p>Several scenarios have been developed. To run a simple simulation, you can use the following command:</p>
+<pre><code>$ ./5G-air-simulator Simple
+</code></pre>
+<p>For more details about the available scenarios, use</p>
+<pre><code>$ ./5G-air-simulator -h
+</code></pre>
+<h3 id="4-use-advanced-channels">4. Use Advanced Channels</h3>
+<p>In order to exploit MIMO and mMIMO capabilities of 5G-air-simulator you need to perform additional steps.</p>
+<ul>
+<li>Download <a href="https://telematics.poliba.it/5G-air-simulator-ff" title="Additional Fast Fading Realizations">this file</a></li>
+<li>Extract it into src/channel/propagation-model/FastFadingRealization/</li>
+<li>Open the file src/load-parameters.h</li>
+<li>Comment the directive <code>#define _channel_simple_</code> </li>
+<li>Uncomment <code>//#define _channel_simple_</code></li>
+<li>Re-build 5G-air-simulator</li>
+</ul>
+<h3 id="5-how-to-debugging-and-logging">5. How-to Debugging and Logging</h3>
+<p>5G-air-simulator leverages macros and environment variables to allow print debugging and logging without compiling the code each time.
+The code must be placed between these macros:  </p>
+<pre><code>DEBUG_LOG_START_1(SIM_ENV_FOO_VAR)
+...
+//debug code
+...
+DEBUG_LOG_END
+</code></pre>
+<p>and each time you want to run that piece of code you just have to create the related environment variable, using the following command:</p>
+<pre><code>$ export SIM_ENV_FOO_VAR=1
+</code></pre>
+<p>This operation can be undone by deleting the same environment variable:</p>
+<pre><code>$ unset SIM_ENV_FOO_VAR
+</code></pre>
+<p>5G-air-simulator works also with multiple environment variables at the same time (up to 4). 
+ For example:</p>
+<pre><code>DEBUG_LOG_START_2(SIM_ENV_FOO_VAR, SIM_ENV_FOO_VAR_2)
+...
+//debug code
+...
+DEBUG_LOG_END
+</code></pre>
+<p>tells the compiler to run the code only if either <code>SIM_ENV_FOO_VAR</code> or <code>SIM_ENV_FOO_VAR_2</code> have been defined.</p>
+<p>Several instances are already present in the source files.</p>
+<h3 id="6-additional-support">6. Additional Support</h3>
+<p>Please refer to this <a href="https://telematics.poliba.it/5G-air-simulator" title="5G-air-simulator Official Web Page">web page</a> for additional support.</p>
+<hr />
+<p>Â© 2020 - TELEMATICS LAB - Politecnico di Bari</p>
+</body></html>
